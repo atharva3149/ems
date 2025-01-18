@@ -21,9 +21,6 @@ const App = () => {
     
   }, [authdata])
   
-
-
-   
 const handleLogin = (email , password)=>{
     if(email == 'admin@me.com' && password == '123'){
       setuser('admin')

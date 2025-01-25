@@ -3,6 +3,7 @@ import Login from './components/Auth/Login'
 import EmployeeDashboard from './components/Dashboard.jsx/EmployeeDashboard'
 import AdminDashboard from './components/Dashboard.jsx/AdminDashboard'
 import { AuthContext } from './context/AuthProvider'
+import { data } from 'autoprefixer'
 
 
 const App = () => {
@@ -11,16 +12,15 @@ const App = () => {
   const [loggedinUserData, setloggedinUserData] = useState(null)
   const authdata = useContext(AuthContext)
  
-  // useEffect(() => {
-  //  if(authdata){
-  //     const loggedInUser = localStorage.getItem("loggedInUser")
-  //      if(loggedInUser){
-  //       setuser(loggedInUser.role)
-  //      }
-  //  }
-  
-    
-  // }, [authdata])
+    useEffect(()=>{
+      const loggedInUser = localStorage.getItem("loggedInUser")
+
+      if(loggedInUser){
+        const userData = JSON.parse(loggedInUser)
+        setuser(userData.role)
+        setloggedinUserData(userData).data
+      }
+    })
   
 const handleLogin = (email , password)=>{
     if(email == 'admin@me.com' && password == '123'){
@@ -31,7 +31,7 @@ const handleLogin = (email , password)=>{
       if(employee){
         setuser('employee')
         setloggedinUserData(employee)
-        localStorage.setItem("loggedInUser",JSON.stringify({role:'employees'}))
+        localStorage.setItem("loggedInUser",JSON.stringify({role:'employees',data:employee}))
       }
      
 
